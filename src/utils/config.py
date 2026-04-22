@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     # SEC EDGAR
     sec_user_agent: str
     
+    # OpenAI
+    openai_api_key: str
+    
     # Paths — computed from project root
     project_root: Path = Path(__file__).parent.parent.parent
     data_raw_dir: Path = project_root / "data" / "raw"
@@ -21,5 +24,4 @@ class Settings(BaseSettings):
     )
 
 
-# Singleton instance — import this from anywhere
 settings = Settings()
