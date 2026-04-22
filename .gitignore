@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+*.egg-info/
+
+# Environment
+.env
+
+# Data
+data/raw/*
+data/processed/*
+data/chunks/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/chunks/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
