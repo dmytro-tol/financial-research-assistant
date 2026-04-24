@@ -14,3 +14,6 @@ langchain-community==0.3.13
 langchain-chroma==0.1.4
 chromadb==0.5.23
 tiktoken==0.8.0
+
+streamlit==1.41.1
+langgraph==0.2.60
