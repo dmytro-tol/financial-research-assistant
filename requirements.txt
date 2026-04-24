@@ -17,3 +17,4 @@ tiktoken==0.8.0
 
 streamlit==1.41.1
 langgraph==0.2.60
+rank-bm25==0.2.2

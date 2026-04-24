@@ -5,7 +5,6 @@ from langchain.schema import SystemMessage, HumanMessage
 from langgraph.graph import StateGraph, END
 from pydantic import BaseModel, Field
 from src.utils.config import settings
-from src.retrieval.vector_store import search
 from src.retrieval.dedup import deduplicate_chunks
 from src.retrieval.models import RetrievedChunk
 
@@ -139,27 +138,19 @@ Break down with different/broader sub-queries than before:"""
 
 
 def retrieve_node(state: AgentState) -> dict:
-    """Node 2: Retrieve chunks for each sub-query."""
-    print(f"🔍 [retrieve] Searching for {len(state['sub_queries'])} sub-queries...")
+    """Node 2: Retrieve chunks using hybrid search (semantic + keyword)."""
+    from src.retrieval.hybrid_search import hybrid_search
+    
+    print(f"🔍 [retrieve] Hybrid search for {len(state['sub_queries'])} sub-queries...")
     
     all_chunks = []
     for sub_q in state["sub_queries"]:
-        raw_results = search(
+        chunks = hybrid_search(
             query=sub_q,
             n_results=5,
             filter_ticker=state.get("filter_ticker"),
+            verbose=False,
         )
-        
-        chunks = [
-            RetrievedChunk(
-                text=r["text"],
-                ticker=r["metadata"]["ticker"],
-                filing_type=r["metadata"]["filing_type"],
-                accession_number=r["metadata"]["accession_number"],
-                distance=r["distance"],
-            )
-            for r in raw_results
-        ]
         all_chunks.extend(chunks)
     
     unique_chunks = deduplicate_chunks(all_chunks)
