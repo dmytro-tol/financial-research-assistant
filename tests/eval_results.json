@@ -13,57 +13,57 @@
       "keyword_coverage": 1.0,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 11.153084993362427,
+      "duration_seconds": 24.224875926971436,
       "chunks_retrieved": 4
     },
     {
       "question": "What are Apple's main product categories?",
       "category": "factual",
-      "answer": "Apple's main product categories include:\n\n1. **iPhone** - A line of smartphones based on its iOS operating system, including models like iPhone 16 Pro, iPhone 16, iPhone 15, iPhone 14, and iPhone SE.\n2. **Mac** - A line of personal computers based on its macOS operating system, which includes laptop...",
+      "answer": "Apple's main product categories include:\n\n1. **iPhone** - Smartphones based on the iOS operating system, including models like iPhone 16 Pro, iPhone 16, iPhone 15, iPhone 14, and iPhone SE.\n2. **Mac** - Personal computers based on the macOS operating system, including laptops like MacBook Air and Ma...",
       "retrieved_tickers": [
         "AAPL",
-        "GOOGL"
+        "MSFT"
       ],
       "retrieval_precision": 1.0,
-      "keyword_coverage": 1.0,
+      "keyword_coverage": 0.75,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 10.043885946273804,
+      "duration_seconds": 16.735365629196167,
       "chunks_retrieved": 3
     },
     {
       "question": "What was Apple's total net sales in fiscal 2024?",
       "category": "factual",
-      "answer": "Apple's total net sales in fiscal 2024 were $391,035 million. [AAPL, 10-K, 0000320193-24-000123]",
+      "answer": "I don't have enough information.",
       "retrieved_tickers": [
         "AAPL",
         "NVDA"
       ],
       "retrieval_precision": 1.0,
-      "keyword_coverage": 1.0,
-      "answered": true,
+      "keyword_coverage": 0.0,
+      "answered": false,
       "refused_correctly": false,
-      "duration_seconds": 6.23518705368042,
+      "duration_seconds": 13.574676513671875,
       "chunks_retrieved": 5
     },
     {
       "question": "What does Nvidia's data center segment include?",
       "category": "factual",
-      "answer": "Nvidia's data center segment includes the following:\n\n1. **Compute Offerings**: Supercomputing platforms and servers that integrate energy-efficient GPUs, DPUs, interconnects, and fully optimized AI and high-performance computing (HPC) software stacks.\n2. **Software**: NVIDIA AI Enterprise software,...",
+      "answer": "Nvidia's data center segment includes the following:\n\n1. Data Center accelerated computing platform\n2. Networking\n3. Automotive artificial intelligence (AI) Cockpit\n4. Autonomous driving development agreements and solutions\n5. Electric vehicle computing platforms\n6. Jetson for robotics and other emb...",
       "retrieved_tickers": [
         "NVDA"
       ],
       "retrieval_precision": 1.0,
-      "keyword_coverage": 1.0,
+      "keyword_coverage": 0.5,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 7.5422704219818115,
+      "duration_seconds": 14.338791847229004,
       "chunks_retrieved": 4
     },
     {
       "question": "What is Meta's Reality Labs segment?",
       "category": "factual",
-      "answer": "Meta's Reality Labs segment focuses on long-term research and development for products that are not currently on the market, with an emphasis on innovations in AI and hardware to create next-generation interfaces. This segment includes the development of virtual reality (VR) products, such as the Me...",
+      "answer": "Meta's Reality Labs segment focuses on long-term research and development for products that are not currently on the market, including innovations in AI and hardware for next-generation interfaces. The segment includes current product offerings in virtual reality (VR) such as the Meta Quest devices ...",
       "retrieved_tickers": [
         "META"
       ],
@@ -71,7 +71,7 @@
       "keyword_coverage": 1.0,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 8.536657810211182,
+      "duration_seconds": 14.332827806472778,
       "chunks_retrieved": 4
     },
     {
@@ -79,62 +79,56 @@
       "category": "factual",
       "answer": "JPMorgan's primary business focus is on being a leading financial services firm that operates in various sectors, including investment banking, financial services for consumers and small businesses, commercial banking, financial transaction processing, and asset management. The Firm serves millions ...",
       "retrieved_tickers": [
-        "JPM",
-        "UNH"
+        "JPM"
       ],
       "retrieval_precision": 1.0,
       "keyword_coverage": 1.0,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 5.6331562995910645,
-      "chunks_retrieved": 3
+      "duration_seconds": 17.50848627090454,
+      "chunks_retrieved": 4
     },
     {
       "question": "What are Visa's main revenue sources?",
       "category": "factual",
-      "answer": "Visa's main revenue sources include:\n\n1. **Service Revenue**: Earned for services provided in support of client usage of Visa payment services.\n2. **Other Revenue**: Consists mainly of value-added services related to advisory, marketing, and certain card benefits; license fees for the use of the Vis...",
+      "answer": "Visa's main revenue sources are:\n\n1. **Service Revenue**: Earned for services provided in support of client usage of Visa payment services, including fees related to payments volumes.\n2. **Data Processing Revenue**: Earned for authorization, clearing and settlement; value-added services related to i...",
       "retrieved_tickers": [
-        "GOOGL",
-        "JPM",
         "V"
       ],
       "retrieval_precision": 1.0,
       "keyword_coverage": 1.0,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 7.269265174865723,
-      "chunks_retrieved": 5
+      "duration_seconds": 17.305408000946045,
+      "chunks_retrieved": 4
     },
     {
       "question": "What services does UnitedHealth provide?",
       "category": "factual",
-      "answer": "UnitedHealth provides a variety of health benefits and services through its segments, which include:\n\n1. **UnitedHealthcare**: This segment offers health benefit plans and services for employers and individuals, including:\n   - Employer-sponsored health benefits\n   - Individual and family plans\n   -...",
+      "answer": "UnitedHealth provides a variety of services through its segments:\n\n1. **UnitedHealthcare Employer & Individual**:\n   - Offers employer-sponsored health benefits and individual and family plans.\n   - Provides consumer engagement products, traditional products, clinical and pharmacy products, and spec...",
       "retrieved_tickers": [
-        "JPM",
-        "META",
-        "NVDA",
         "UNH"
       ],
       "retrieval_precision": 1.0,
       "keyword_coverage": 0.6666666666666666,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 27.035913467407227,
-      "chunks_retrieved": 12
+      "duration_seconds": 21.511582612991333,
+      "chunks_retrieved": 4
     },
     {
       "question": "What was Google's cloud revenue in 2023?",
       "category": "factual",
-      "answer": "Google Cloud revenue in 2023 was $43.229 billion [GOOGL, 10-K, 0001652044-25-000014].",
+      "answer": "Google Cloud revenue in 2023 was $33.1 billion [GOOGL, 10-K, 0001652044-25-000014].",
       "retrieved_tickers": [
         "GOOGL",
         "MSFT"
       ],
       "retrieval_precision": 1.0,
-      "keyword_coverage": 0.5,
+      "keyword_coverage": 1.0,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 5.017087936401367,
+      "duration_seconds": 18.048523426055908,
       "chunks_retrieved": 5
     },
     {
@@ -149,60 +143,60 @@
       "keyword_coverage": 1.0,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 5.017296552658081,
+      "duration_seconds": 12.9574613571167,
       "chunks_retrieved": 3
     },
     {
       "question": "Compare Microsoft and Google's AI strategies",
       "category": "comparative",
-      "answer": "Microsoft and Google both emphasize the integration of artificial intelligence (AI) into their products and services, but they approach their strategies with some differences.\n\n**Microsoft's AI Strategy:**\n- Microsoft focuses on embedding AI across its entire portfolio, including productivity servic...",
+      "answer": "Microsoft and Google have distinct but overlapping AI strategies as outlined in their respective SEC filings.\n\n**Microsoft's AI Strategy:**\n- Microsoft is integrating AI into many of its offerings, particularly in productivity services, and is also making AI available for customers to use in their o...",
       "retrieved_tickers": [
         "GOOGL",
         "MSFT"
       ],
       "retrieval_precision": 1.0,
-      "keyword_coverage": 0.0,
+      "keyword_coverage": 0.5,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 13.004115104675293,
-      "chunks_retrieved": 9
+      "duration_seconds": 22.03193736076355,
+      "chunks_retrieved": 5
     },
     {
       "question": "How do Apple and Google differ in revenue composition?",
       "category": "comparative",
-      "answer": "Apple and Google differ significantly in their revenue composition. \n\nApple recognizes revenue primarily from two categories: Products and Services. For Products, revenue is recognized when control transfers upon shipment, while for Services, it is recognized over time as services are delivered. App...",
+      "answer": "I don't have enough information.",
       "retrieved_tickers": [
         "AAPL",
-        "GOOGL",
-        "JPM"
+        "GOOGL"
       ],
       "retrieval_precision": 1.0,
-      "keyword_coverage": 0.6666666666666666,
-      "answered": true,
+      "keyword_coverage": 0.0,
+      "answered": false,
       "refused_correctly": false,
-      "duration_seconds": 8.367374181747437,
-      "chunks_retrieved": 9
+      "duration_seconds": 26.50895118713379,
+      "chunks_retrieved": 5
     },
     {
       "question": "Compare Amazon and Microsoft's cloud offerings",
       "category": "comparative",
-      "answer": "Amazon's cloud offerings are primarily provided through Amazon Web Services (AWS), which offers a broad set of on-demand technology services, including compute, storage, database, analytics, and machine learning. AWS serves developers and enterprises of all sizes, including start-ups, government age...",
+      "answer": "Amazon and Microsoft's cloud offerings face competition in the market, with both companies providing extensive services. \n\nMicrosoft's Azure offers a competitive advantage through its hybrid cloud capabilities, allowing the integration of existing datacenters with public cloud infrastructure. Azure ...",
       "retrieved_tickers": [
-        "AMZN",
+        "GOOGL",
         "MSFT"
       ],
-      "retrieval_precision": 1.0,
-      "keyword_coverage": 1.0,
+      "retrieval_precision": 0.5,
+      "keyword_coverage": 0.5,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 32.89941382408142,
-      "chunks_retrieved": 8
+      "duration_seconds": 25.325673818588257,
+      "chunks_retrieved": 6
     },
     {
       "question": "How do Nvidia and Meta approach AI investment?",
       "category": "comparative",
-      "answer": "NVIDIA and Meta approach AI investment with distinct strategies that reflect their business models and goals.\n\nNVIDIA focuses on providing a \"complete, end-to-end accelerated computing platform for AI,\" which includes solutions for both training and inferencing. Their strategy emphasizes leveraging ...",
+      "answer": "NVIDIA and Meta approach AI investment with distinct strategies that align with their overall business goals.\n\nNVIDIA focuses on providing a \"complete, end-to-end accelerated computing platform for AI,\" which addresses both training and inferencing. Their investment strategy includes developing \"ful...",
       "retrieved_tickers": [
+        "GOOGL",
         "META",
         "NVDA"
       ],
@@ -210,16 +204,14 @@
       "keyword_coverage": 1.0,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 10.749479293823242,
-      "chunks_retrieved": 9
+      "duration_seconds": 20.639383554458618,
+      "chunks_retrieved": 4
     },
     {
       "question": "Which companies rely heavily on advertising revenue?",
       "category": "aggregation",
-      "answer": "The companies that rely heavily on advertising revenue are:\n\n1. **Meta**: \"We generate substantially all of our revenue from advertising\" [META, 10-K, 0001326801-24-000012].\n2. **Google (Alphabet Inc.)**: \"We generate revenues by delivering relevant, cost-effective online advertising\" [GOOGL, 10-K, ...",
+      "answer": "Both Google (GOOGL) and Meta (META) rely heavily on advertising revenue. \n\nFor Google, it is stated that \"Google advertising revenues consist of revenues from Google Search and other properties, YouTube properties, and Google Network properties\" [GOOGL, 10-K, 0001652044-26-000018]. \n\nFor Meta, it is...",
       "retrieved_tickers": [
-        "AAPL",
-        "AMZN",
         "GOOGL",
         "META"
       ],
@@ -227,101 +219,77 @@
       "keyword_coverage": 1.0,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 9.689406633377075,
-      "chunks_retrieved": 13
+      "duration_seconds": 17.559993028640747,
+      "chunks_retrieved": 5
     },
     {
       "question": "Which companies mention supply chain risks?",
       "category": "aggregation",
-      "answer": "The companies that mention supply chain risks are:\n\n1. NVIDIA (NVDA) - \"We have long manufacturing lead times and build finished products and maintain inventory in advance of anticipated demand\" [NVDA, 10-K, 0001045810-25-000023].\n\n2. Apple Inc. (AAPL) - \"The Company remains subject to significant r...",
+      "answer": "Both META and GOOGL mention supply chain risks. \n\nMETA states, \"We face a number of risks related to design, manufacturing, and supply chain management with respect to our consumer hardware products\" [META, 10-K, 0001326801-24-000012].\n\nGOOGL mentions, \"We face a number of manufacturing and supply c...",
       "retrieved_tickers": [
-        "AAPL",
         "GOOGL",
+        "META"
+      ],
+      "retrieval_precision": 0.0,
+      "keyword_coverage": 1.0,
+      "answered": true,
+      "refused_correctly": false,
+      "duration_seconds": 57.768911838531494,
+      "chunks_retrieved": 2
+    },
+    {
+      "question": "Which companies discuss AI regulatory risks?",
+      "category": "aggregation",
+      "answer": "The companies that discuss AI regulatory risks are:\n\n1. The first source mentions the need to monitor \"privacy, data and cybersecurity practices\" and the \"variety of laws and regulations governing the development, use and deployment of AI technologies,\" indicating regulatory risks associated with AI...",
+      "retrieved_tickers": [
+        "GOOGL",
+        "JPM",
         "META",
-        "MSFT",
-        "NVDA"
+        "V"
       ],
       "retrieval_precision": 0.6666666666666666,
       "keyword_coverage": 1.0,
       "answered": true,
       "refused_correctly": false,
-      "duration_seconds": 12.22452449798584,
-      "chunks_retrieved": 10
-    },
-    {
-      "question": "Which companies discuss AI regulatory risks?",
-      "category": "aggregation",
-      "answer": "The following companies discuss AI regulatory risks:\n\n1. Microsoft (MSFT) mentions that \"the evolving regulatory landscape\" and \"new laws emerging globally\" could affect their business related to AI, including risks stemming from \"intellectual property, data privacy, and other claims associated with...",
-      "retrieved_tickers": [
-        "AAPL",
-        "GOOGL",
-        "META",
-        "MSFT",
-        "NVDA",
-        "V"
-      ],
-      "retrieval_precision": 1.0,
-      "keyword_coverage": 1.0,
-      "answered": true,
-      "refused_correctly": false,
-      "duration_seconds": 17.5106999874115,
-      "chunks_retrieved": 15
+      "duration_seconds": 87.30261754989624,
+      "chunks_retrieved": 4
     },
     {
       "question": "What is Tesla's quarterly dividend payment?",
       "category": "unanswerable",
       "answer": "I don't have enough information.",
       "retrieved_tickers": [
-        "AAPL",
-        "JPM",
         "META",
-        "MSFT",
-        "TSLA",
-        "V"
+        "TSLA"
       ],
       "retrieval_precision": 1.0,
       "keyword_coverage": 1.0,
       "answered": false,
       "refused_correctly": true,
-      "duration_seconds": 20.582634925842285,
-      "chunks_retrieved": 15
+      "duration_seconds": 12.805397987365723,
+      "chunks_retrieved": 4
     },
     {
       "question": "What was Facebook's revenue in 1995?",
       "category": "unanswerable",
       "answer": "I don't have enough information.",
       "retrieved_tickers": [
-        "META",
-        "MSFT"
+        "META"
       ],
       "retrieval_precision": 1.0,
       "keyword_coverage": 1.0,
       "answered": false,
       "refused_correctly": true,
-      "duration_seconds": 20.6952965259552,
-      "chunks_retrieved": 8
+      "duration_seconds": 10.446284532546997,
+      "chunks_retrieved": 4
     },
     {
       "question": "What are Siemens' main product lines?",
       "category": "unanswerable",
       "answer": "I don't have enough information.",
       "retrieved_tickers": [
-        "GOOGL",
-        "TSLA",
-        "UNH"
-      ],
-      "retrieval_precision": 1.0,
-      "keyword_coverage": 1.0,
-      "answered": false,
-      "refused_correctly": true,
-      "duration_seconds": 16.288760662078857,
-      "chunks_retrieved": 9
-    },
-    {
-      "question": "What is Microsoft's detailed quantum computing roadmap for 2030?",
-      "category": "unanswerable",
-      "answer": "I don't have enough information.",
-      "retrieved_tickers": [
+        "AAPL",
+        "AMZN",
         "GOOGL",
         "MSFT"
       ],
@@ -329,8 +297,22 @@
       "keyword_coverage": 1.0,
       "answered": false,
       "refused_correctly": true,
-      "duration_seconds": 18.829321146011353,
-      "chunks_retrieved": 12
+      "duration_seconds": 24.161096334457397,
+      "chunks_retrieved": 6
+    },
+    {
+      "question": "What is Microsoft's detailed quantum computing roadmap for 2030?",
+      "category": "unanswerable",
+      "answer": "I don't have enough information.",
+      "retrieved_tickers": [
+        "MSFT"
+      ],
+      "retrieval_precision": 1.0,
+      "keyword_coverage": 1.0,
+      "answered": false,
+      "refused_correctly": true,
+      "duration_seconds": 9.322911262512207,
+      "chunks_retrieved": 4
     }
   ]
 }

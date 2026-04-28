@@ -136,9 +136,14 @@ Break down with different/broader sub-queries than before:"""
         "reasoning": plan.reasoning,
     }
 
-
 def retrieve_node(state: AgentState) -> dict:
-    """Node 2: Retrieve chunks using hybrid search (semantic + keyword)."""
+    """Node 2: Retrieve chunks using hybrid search (semantic + keyword).
+    
+    Note: We tested cross-encoder re-ranking but it hurt evaluation metrics
+    on this dataset. Cross-encoders trained on web search don't transfer well
+    to dense financial filings where most chunks contain similar terminology.
+    Hybrid search alone produces our best results.
+    """
     from src.retrieval.hybrid_search import hybrid_search
     
     print(f"🔍 [retrieve] Hybrid search for {len(state['sub_queries'])} sub-queries...")
@@ -160,7 +165,6 @@ def retrieve_node(state: AgentState) -> dict:
     return {
         "retrieved_chunks": unique_chunks,
     }
-
 
 def grade_chunks_node(state: AgentState) -> dict:
     """Node 3: Grade whether retrieved chunks are relevant enough."""
@@ -267,9 +271,14 @@ Good answers have:
 - Directly address the question
 - Acknowledge limitations when context is incomplete
 
+IMPORTANT: An honest refusal is a GOOD answer when context is genuinely weak.
+If the answer says "I don't have enough information" and the retrieved context 
+truly doesn't address the question, score it HIGH (0.8+) and mark good_enough=True.
+Hallucinating an answer would be worse than refusing.
+
 Bad answers:
-- Vague generalizations without specifics
-- Missing citations
+- Vague generalizations not grounded in context
+- Missing citations when claiming facts
 - Going off-topic
 - Making claims not in the context"""
     
