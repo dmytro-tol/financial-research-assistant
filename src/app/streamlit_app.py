@@ -3,7 +3,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 import streamlit as st
-from src.agent.rag_pipeline import ResearchAgent
+#from src.agent.rag_pipeline import ResearchAgent
+from src.agent.graph_agent import GraphResearchAgent
+
 from src.data.sec_downloader import COMPANIES
 
 
@@ -66,7 +68,7 @@ st.markdown("""
 def initialize_session_state():
     """Initialize Streamlit session state variables."""
     if "agent" not in st.session_state:
-        st.session_state.agent = ResearchAgent(use_decomposition=True)
+        st.session_state.agent = GraphResearchAgent()
     
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -226,7 +228,7 @@ def render_conversation():
 
 
 def handle_user_input(user_input: str, filter_ticker: str = None):
-    """Process a user question and add response to conversation."""
+    """Process a user question with streaming response."""
     # Add user message to display
     st.session_state.messages.append({
         "role": "user",
@@ -236,71 +238,90 @@ def handle_user_input(user_input: str, filter_ticker: str = None):
     with st.chat_message("user"):
         st.markdown(user_input)
     
-    # Get agent response
+    # Get agent response with streaming
     with st.chat_message("assistant"):
-        with st.spinner("🔍 Searching filings and analyzing..."):
-            try:
-                response = st.session_state.agent.ask(
-                    question=user_input,
-                    filter_ticker=filter_ticker,
-                    verbose=False,
-                )
+        # Container for status updates
+        status_container = st.empty()
+        
+        # Container for streaming answer
+        answer_container = st.empty()
+        
+        try:
+            full_answer = ""
+            final_state = None
+            
+            # Stream the response
+            for event_type, content in st.session_state.agent.ask_streaming(
+                question=user_input,
+                filter_ticker=filter_ticker,
+            ):
+                if event_type == "status":
+                    # Show status update
+                    status_container.info(content)
                 
-                # Show answer
-                st.markdown(response.answer)
+                elif event_type == "token":
+                    # Append token to answer
+                    full_answer += content
+                    answer_container.markdown(full_answer + " ▌")  # Cursor effect
                 
-                # Prepare source data for storage
-                sources = [
-                    {
-                        "ticker": chunk.ticker,
-                        "filing_type": chunk.filing_type,
-                        "accession_number": chunk.accession_number,
-                        "distance": chunk.distance,
-                        "preview": chunk.text[:200],
-                    }
-                    for chunk in response.retrieved_chunks
-                ]
-                
-                # Show sub-queries if decomposed
-                if len(response.sub_queries) > 1:
-                    with st.expander(f"🧠 Broke into {len(response.sub_queries)} sub-queries"):
-                        for i, sq in enumerate(response.sub_queries, 1):
-                            st.markdown(
-                                f'<div class="sub-query">{i}. {sq}</div>',
-                                unsafe_allow_html=True,
-                            )
-                
-                # Show sources
-                with st.expander(f"📚 Sources ({len(sources)} chunks)"):
-                    for i, source in enumerate(sources, 1):
-                        relevance = max(0, min(1, 1 - source["distance"]))
+                elif event_type == "final_state":
+                    # Done streaming, finalize
+                    final_state = content
+                    answer_container.markdown(full_answer)
+                    status_container.empty()  # Clear status
+            
+            # Prepare source data for storage
+            sources = [
+                {
+                    "ticker": chunk.ticker,
+                    "filing_type": chunk.filing_type,
+                    "accession_number": chunk.accession_number,
+                    "distance": chunk.distance,
+                    "preview": chunk.text[:200],
+                }
+                for chunk in final_state["retrieved_chunks"]
+            ]
+            
+            # Show sub-queries if decomposed
+            if len(final_state["sub_queries"]) > 1:
+                with st.expander(f"🧠 Broke into {len(final_state['sub_queries'])} sub-queries"):
+                    for i, sq in enumerate(final_state["sub_queries"], 1):
                         st.markdown(
-                            f"""<div class="source-card">
-                            <strong>{i}. {source['ticker']} {source['filing_type']}</strong>
-                            — {source['accession_number']}
-                            <br><small>Relevance: {relevance:.1%}</small>
-                            <br><em>{source['preview']}...</em>
-                            </div>""",
+                            f'<div class="sub-query">{i}. {sq}</div>',
                             unsafe_allow_html=True,
                         )
-                
-                # Save to message history
-                st.session_state.messages.append({
-                    "role": "assistant",
-                    "content": response.answer,
-                    "sources": sources,
-                    "sub_queries": response.sub_queries,
-                })
-                
-                st.session_state.query_count += 1
-                
-            except Exception as e:
-                error_msg = f"❌ Error: {str(e)}"
-                st.error(error_msg)
-                st.session_state.messages.append({
-                    "role": "assistant",
-                    "content": error_msg,
-                })
+            
+            # Show sources
+            with st.expander(f"📚 Sources ({len(sources)} chunks)"):
+                for i, source in enumerate(sources, 1):
+                    relevance = max(0, min(1, 1 - source["distance"]))
+                    st.markdown(
+                        f"""<div class="source-card">
+                        <strong>{i}. {source['ticker']} {source['filing_type']}</strong>
+                        — {source['accession_number']}
+                        <br><small>Relevance: {relevance:.1%}</small>
+                        <br><em>{source['preview']}...</em>
+                        </div>""",
+                        unsafe_allow_html=True,
+                    )
+            
+            # Save to message history
+            st.session_state.messages.append({
+                "role": "assistant",
+                "content": full_answer,
+                "sources": sources,
+                "sub_queries": final_state["sub_queries"],
+            })
+            
+            st.session_state.query_count += 1
+            
+        except Exception as e:
+            error_msg = f"❌ Error: {str(e)}"
+            st.error(error_msg)
+            st.session_state.messages.append({
+                "role": "assistant",
+                "content": error_msg,
+            })
 
 
 # === MAIN APP ===

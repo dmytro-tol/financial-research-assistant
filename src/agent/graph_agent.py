@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from src.utils.config import settings
 from src.retrieval.dedup import deduplicate_chunks
 from src.retrieval.models import RetrievedChunk
-
+from src.agent.rag_pipeline import decompose_query
 
 # === CONFIGURATION ===
 
@@ -463,6 +463,106 @@ class GraphResearchAgent:
         state = self.ask(question, filter_ticker)
         return state["answer"]
 
+    def ask_streaming(
+        self,
+        question: str,
+        filter_ticker: Optional[str] = None,
+    ):
+        """Ask a question with streaming output.
+        
+        Yields status updates and answer tokens as they're generated.
+        
+        Yields:
+            tuple: (event_type, content)
+              event_type: 'status' | 'token' | 'final_state'
+              content: status message OR token text OR final state dict
+        """
+        from src.retrieval.hybrid_search import hybrid_search
+        from langchain_openai import ChatOpenAI
+        from langchain.schema import SystemMessage, HumanMessage
+        
+        # === DECOMPOSE ===
+        yield ("status", "🧠 Planning approach...")
+        
+        plan = decompose_query(question=question, history=None, verbose=False)
+        sub_queries = plan.sub_queries
+        
+        if len(sub_queries) > 1:
+            yield ("status", f"📋 Broke into {len(sub_queries)} sub-queries")
+        
+        # === RETRIEVE ===
+        yield ("status", "🔍 Searching SEC filings...")
+        
+        all_chunks = []
+        for sub_q in sub_queries:
+            chunks = hybrid_search(
+                query=sub_q,
+                n_results=5,
+                filter_ticker=filter_ticker,
+                verbose=False,
+            )
+            all_chunks.extend(chunks)
+        
+        unique_chunks = deduplicate_chunks(all_chunks)
+        
+        yield ("status", f"📚 Found {len(unique_chunks)} relevant passages")
+        
+        # === SYNTHESIZE WITH STREAMING ===
+        yield ("status", "✍️ Generating answer...")
+        
+        # Build the messages
+        system_msg = """You are a financial research assistant specializing in SEC filings.
+
+You answer questions based ONLY on the context provided. Do not use general knowledge.
+
+Rules:
+1. Answer based ONLY on the provided context
+2. If context is insufficient, say "I don't have enough information"
+3. Cite sources as [TICKER, FILING_TYPE, ACCESSION]
+4. Quote directly when specific wording matters
+5. Be precise with numbers and dates from the context"""
+        
+        context = "\n---\n".join(c.to_context_string() for c in unique_chunks)
+        
+        user_msg = f"""Context from SEC filings:
+
+{context}
+
+---
+
+Question: {question}
+
+Answer based only on the context above. Cite sources as [TICKER, FILING_TYPE, ACCESSION]."""
+        
+        # Create streaming LLM
+        streaming_llm = ChatOpenAI(
+            model=LLM_MODEL,
+            temperature=LLM_TEMPERATURE,
+            api_key=settings.openai_api_key,
+            streaming=True,
+        )
+        
+        messages = [
+            SystemMessage(content=system_msg),
+            HumanMessage(content=user_msg),
+        ]
+        
+        # Stream tokens
+        full_answer = ""
+        for chunk in streaming_llm.stream(messages):
+            token = chunk.content
+            if token:
+                full_answer += token
+                yield ("token", token)
+        
+        # Yield final state with metadata
+        final_state = {
+            "question": question,
+            "answer": full_answer,
+            "retrieved_chunks": unique_chunks,
+            "sub_queries": sub_queries,
+        }
+        yield ("final_state", final_state)
 
 if __name__ == "__main__":
     agent = GraphResearchAgent()
