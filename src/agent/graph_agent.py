@@ -73,15 +73,32 @@ class QualityAssessment(BaseModel):
 
 # === HELPER FUNCTIONS ===
 
-def get_llm() -> ChatOpenAI:
-    """Create an LLM client."""
-    return ChatOpenAI(
-        model=LLM_MODEL,
-        temperature=LLM_TEMPERATURE,
-        api_key=settings.openai_api_key,
-    )
+#def get_llm() -> ChatOpenAI:
+#    """Create an LLM client."""
+#    return ChatOpenAI(
+#        model=LLM_MODEL,
+#        temperature=LLM_TEMPERATURE,
+#        api_key=settings.openai_api_key,
+#    )
 
-
+def get_llm():
+    """Create an LLM client (Azure or OpenAI based on config)."""
+    if settings.use_azure:
+        from langchain_openai import AzureChatOpenAI
+        return AzureChatOpenAI(
+            azure_deployment=settings.azure_llm_deployment,
+            api_key=settings.azure_openai_api_key,
+            azure_endpoint=settings.azure_openai_endpoint,
+            api_version=settings.azure_openai_api_version,
+            temperature=LLM_TEMPERATURE,
+        )
+    else:
+        from langchain_openai import ChatOpenAI
+        return ChatOpenAI(
+            model=LLM_MODEL,
+            temperature=LLM_TEMPERATURE,
+            api_key=settings.openai_api_key,
+        )
 def format_chunks_for_prompt(chunks: list[RetrievedChunk]) -> str:
     """Format retrieved chunks for inclusion in LLM prompt."""
     if not chunks:
@@ -534,13 +551,25 @@ Question: {question}
 
 Answer based only on the context above. Cite sources as [TICKER, FILING_TYPE, ACCESSION]."""
         
-        # Create streaming LLM
-        streaming_llm = ChatOpenAI(
-            model=LLM_MODEL,
-            temperature=LLM_TEMPERATURE,
-            api_key=settings.openai_api_key,
-            streaming=True,
-        )
+# Create streaming LLM (Azure or OpenAI based on config)
+        if settings.use_azure:
+            from langchain_openai import AzureChatOpenAI
+            streaming_llm = AzureChatOpenAI(
+                azure_deployment=settings.azure_llm_deployment,
+                api_key=settings.azure_openai_api_key,
+                azure_endpoint=settings.azure_openai_endpoint,
+                api_version=settings.azure_openai_api_version,
+                temperature=LLM_TEMPERATURE,
+                streaming=True,
+            )
+        else:
+            from langchain_openai import ChatOpenAI
+            streaming_llm = ChatOpenAI(
+                model=LLM_MODEL,
+                temperature=LLM_TEMPERATURE,
+                api_key=settings.openai_api_key,
+                streaming=True,
+            )
         
         messages = [
             SystemMessage(content=system_msg),

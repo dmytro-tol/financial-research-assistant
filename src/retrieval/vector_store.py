@@ -18,13 +18,29 @@ COLLECTION_NAME = "sec_filings"
 EMBEDDING_MODEL = "text-embedding-3-small"
 
 
-def get_embeddings_client() -> OpenAIEmbeddings:
-    """Create OpenAI embeddings client."""
-    return OpenAIEmbeddings(
-        model=EMBEDDING_MODEL,
-        api_key=settings.openai_api_key,
-    )
+#def get_embeddings_client() -> OpenAIEmbeddings:
+#    """Create OpenAI embeddings client."""
+#    return OpenAIEmbeddings(
+#        model=EMBEDDING_MODEL,
+#        api_key=settings.openai_api_key,
+#    )
 
+def get_embeddings_client():
+    """Create embeddings client (Azure or OpenAI based on config)."""
+    if settings.use_azure:
+        from langchain_openai import AzureOpenAIEmbeddings
+        return AzureOpenAIEmbeddings(
+            azure_deployment=settings.azure_embedding_deployment,
+            api_key=settings.azure_openai_api_key,
+            azure_endpoint=settings.azure_openai_endpoint,
+            api_version=settings.azure_openai_api_version,
+        )
+    else:
+        from langchain_openai import OpenAIEmbeddings
+        return OpenAIEmbeddings(
+            model=EMBEDDING_MODEL,
+            api_key=settings.openai_api_key,
+        )
 
 def get_chroma_client() -> chromadb.PersistentClient:
     """Create ChromaDB persistent client."""

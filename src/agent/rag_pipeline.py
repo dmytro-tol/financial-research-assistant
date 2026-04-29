@@ -108,14 +108,32 @@ class RAGResponse:
 # === CORE FUNCTIONS ===
 
 
-def get_llm(model: str = LLM_MODEL) -> ChatOpenAI:
-    """Create an LLM client."""
-    return ChatOpenAI(
-        model=model,
-        temperature=LLM_TEMPERATURE,
-        api_key=settings.openai_api_key,
-    )
+#def get_llm(model: str = LLM_MODEL) -> ChatOpenAI:
+#    """Create an LLM client."""
+#    return ChatOpenAI(
+#        model=model,
+#        temperature=LLM_TEMPERATURE,
+#        api_key=settings.openai_api_key,
+#    )
 
+def get_llm(model: str = LLM_MODEL):
+    """Create an LLM client (Azure or OpenAI based on config)."""
+    if settings.use_azure:
+        from langchain_openai import AzureChatOpenAI
+        return AzureChatOpenAI(
+            azure_deployment=settings.azure_llm_deployment,
+            api_key=settings.azure_openai_api_key,
+            azure_endpoint=settings.azure_openai_endpoint,
+            api_version=settings.azure_openai_api_version,
+            temperature=LLM_TEMPERATURE,
+        )
+    else:
+        from langchain_openai import ChatOpenAI
+        return ChatOpenAI(
+            model=model,
+            temperature=LLM_TEMPERATURE,
+            api_key=settings.openai_api_key,
+        )
 
 def retrieve_chunks(
     query: str,
