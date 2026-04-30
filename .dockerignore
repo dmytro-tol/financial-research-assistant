@@ -1,0 +1,39 @@
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Environment files (we use Azure env vars instead)
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Git
+.git/
+.gitignore
+
+# Tests (optional - exclude to slim image)
+tests/
+
+# Docs
+docs/
+*.md
+
+# Data we don't need in container
+data/raw/
+
+# Don't include the Dockerfile itself
+Dockerfile
+.dockerignore
