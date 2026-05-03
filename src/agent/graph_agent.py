@@ -11,7 +11,7 @@ from src.agent.rag_pipeline import decompose_query
 
 # === CONFIGURATION ===
 
-LLM_MODEL = "gpt-4o-mini"
+LLM_MODEL = "gpt-4.1-mini"
 LLM_TEMPERATURE = 0
 MAX_RETRIES = 2
 RELEVANCE_THRESHOLD = 0.2  # Lowered from 0.4 — our scores run lower
@@ -436,7 +436,15 @@ class GraphResearchAgent:
     
     def __init__(self):
         self.graph = build_graph()
-    
+    def reset(self):
+        """Reset conversation memory and any cached state."""
+        if hasattr(self, "memory") and self.memory is not None:
+            try:
+                self.memory.clear()
+            except Exception:
+                self.memory = None
+        # If agent uses LangGraph state, no persistent state between calls
+        # so just clear memory if it exists
     def ask(
         self,
         question: str,
