@@ -4,6 +4,7 @@
 > Multi-step LangGraph agent with hybrid retrieval, query decomposition, chunk grading and answer reflection.  
 > Deployed live on Azure.
 
+🎥 **5-min demo video:** https://youtu.be/4m7qmOT0iSE  
 🔗 **Live demo:** https://financial-research-assistant.salmonwave-71cee0aa.swedencentral.azurecontainerapps.io/  
 📊 **Evaluation:** 98.4% retrieval precision · 98.8% keyword coverage (21 questions across 4 categories)  
 🛠️ **Stack:** Python · LangGraph · Azure OpenAI · ChromaDB · BM25 · Streamlit · Docker · Azure Container Apps
